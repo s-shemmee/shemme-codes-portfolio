@@ -32,7 +32,7 @@ const containerVariants = {
 };
 
 const buttonStyles =
-  'text-gray-700 dark:text-gray-300 hover:text-bluebell dark:hover:text-bluebell hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors duration-300 focus-visible:ring focus-visible:ring-bluebell focus-visible:ring-opacity-50 rounded-full p-2';
+  'focus-ring-sm inline-flex items-center justify-center rounded-full p-2 text-gray-700 transition-colors duration-300 hover:bg-gray-200 hover:text-bluebellText dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-bluebellTextDark';
 
 const ProjectCard: React.FC<{
   project: Project;
@@ -60,7 +60,7 @@ const ProjectCard: React.FC<{
             priority={index === 0}
             loading={index === 0 ? 'eager' : 'lazy'}
           />
-          <div className="absolute inset-0 bg-bluebell opacity-25 hover:opacity-0 transition-opacity duration-300 rounded-lg"></div>
+          <div className="absolute inset-0 bg-bluebell opacity-15 hover:opacity-0 transition-opacity duration-300 rounded-lg"></div>
         </div>
       </div>
       <div
@@ -74,7 +74,10 @@ const ProjectCard: React.FC<{
         </p>
         <ul className="flex flex-wrap space-x-2 mb-4">
           {project.techStack.map((tech: string) => (
-            <li key={tech} className="font-serif text-sm text-bluebell">
+            <li
+              key={tech}
+              className="font-serif text-sm text-bluebellText dark:text-bluebellTextDark"
+            >
               {tech}
             </li>
           ))}
@@ -121,14 +124,14 @@ const Projects: React.FC = () => {
     >
       <div className="max-w-custom mx-auto py-16 md:py-28">
         <motion.h2
-          className="text-2xl text-gray-900 font-sans font-semibold dark:text-gray-50 flex items-center mb-16"
+          className="text-[1.75rem] text-gray-900 font-sans font-semibold dark:text-gray-50 flex items-center mb-16"
           initial="hidden"
           animate={hasBeenInView ? 'visible' : 'hidden'}
           variants={textVariants}
           custom={0}
         >
           <span
-            className="text-xl text-bluebell font-serif"
+            className="text-xl text-bluebellText dark:text-bluebellTextDark font-serif"
             style={{ transform: 'translateY(-0.15em)' }}
           >
             03.
@@ -144,16 +147,15 @@ const Projects: React.FC = () => {
             hasBeenInView={hasBeenInView}
           />
         ))}
-        <div className="flex justify-end mt-10">
+        <div className="mt-10 flex justify-end">
           <a
             href="https://github.com/s-shemmee?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="See More Projects"
+            className="focus-ring inline-flex items-center justify-center rounded-lg border-2 border-bluebell bg-transparent px-4 py-3 font-serif text-bluebellText transition-all duration-300 hover:-translate-y-0.5 hover:bg-bluebell hover:bg-opacity-10 hover:shadow-lg dark:text-bluebellTextDark"
           >
-            <button className="p-3 bg-transparent border-2 border-bluebell text-bluebell font-serif rounded transition-transform transform hover:bg-bluebell hover:bg-opacity-10 hover:shadow-lg">
-              See More Projects
-            </button>
+            See More Projects
           </a>
         </div>
       </div>

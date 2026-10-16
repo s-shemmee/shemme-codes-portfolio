@@ -1,23 +1,31 @@
 [
   {
-    "title": "ChatNow",
-    "description": "Real-time web chat application powered by Firebase, React, and TypeScript. It provides users with a seamless platform for instant conversations, sharing files, and more.",
-    "techStack": ["React", "TypeScript", "Firebase", "SCSS"],
-    "image": "https://placehold.co/500x250/png?text=ChatNow",
-    "githubLink": "https://github.com/s-shemmee/ChatNow",
-    "demoLink": "https://chat-now-shemmee.vercel.app/"
+    "title": "Dwellio",
+    "description": "An Airbnb-inspired platform for listing, discovering, and booking unique places to stay, built with a distinct design and integrated booking and payment experiences.",
+    "techStack": ["Next.js", "TypeScript", "TailwindCSS", "MongoDB"],
+    "image": "https://placehold.co/500x250/png?text=Dwellio",
+    "githubLink": "https://github.com/s-shemmee/Dwellio",
+    "demoLink": "https://dwellio-shemmee.vercel.app/"
+  },
+  {
+    "title": "Yapp",
+    "description": "A real-time chat app for instant conversations and file sharing, featuring Firebase authentication, live messaging, and Cloudinary-powered image hosting.",
+    "techStack": ["React", "TypeScript", "Firebase", "Cloudinary"],
+    "image": "https://placehold.co/500x250/png?text=Yapp",
+    "githubLink": "https://github.com/s-shemmee/Yapp",
+    "demoLink": "https://yapp-shemmee.vercel.app/"
   },
   {
     "title": "MoviePitch",
-    "description": "Transform one-sentence ideas into full movie concepts with AI. Utilizes OpenAI API, integrating ChatGPT for text generation and DALL-E for image creation.",
-    "techStack": ["Vue", "JavaScript", "OpenAI API", "CSS"],
+    "description": "Turn a one-line idea into a full movie pitch — title, synopsis, cast, and an AI-generated poster — powered by Google Gemini and Cloudflare Workers AI.",
+    "techStack": ["Vue 3", "Vite", "Google Gemini", "Cloudflare Workers AI"],
     "image": "https://placehold.co/500x250/png?text=MoviePitch",
     "githubLink": "https://github.com/s-shemmee/MoviePitch",
     "demoLink": "https://moviepitch-shemmee.vercel.app/"
   },
   {
     "title": "GhibliGaze",
-    "description": "Celebrate Studio Ghibli's iconic films with GhibliGaze. A single-page app featuring movie info, trailers, a gallery, and the latest news—all in one seamless experience.",
+    "description": "A single-page tribute to Studio Ghibli's films, bringing together movie info, trailers, a gallery, and news in one browsing experience for fans to explore.",
     "techStack": ["React", "JavaScript", "YouTube Data API", "TailwindCSS"],
     "image": "https://placehold.co/500x250/png?text=GhibliGaze",
     "githubLink": "https://github.com/s-shemmee/GhibliGaze",
@@ -25,7 +33,7 @@
   },
   {
     "title": "Dictionary",
-    "description": "Explore word definitions, synonyms, antonyms, and examples with ease. This sleek dictionary app is your go-to for quick, seamless vocabulary discovery.",
+    "description": "A fast, minimal dictionary app for looking up definitions, synonyms, antonyms, and usage examples — built for quick vocabulary lookups without the clutter.",
     "techStack": ["React", "JavaScript", "Dictionary API", "CSS"],
     "image": "https://placehold.co/500x250/png?text=Dictionary",
     "githubLink": "https://github.com/s-shemmee/Dictionary-React-App",
