@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import LinkedInIcon from '@/components/icons/LinkedInIcon';
 import GitHubIcon from '@/components/icons/GithubIcon';
 import XIcon from '@/components/icons/XIcon';
-import DribbbleIcon from '@/components/icons/DribbbleIcon';
+import BehanceIcon from '@/components/icons/BehanceIcon';
 import ForkIcon from '@/components/icons/ForkIcon';
 import StarIcon from '@/components/icons/StarIcon';
 import useInView from '@/hooks/useInView';
@@ -107,17 +107,6 @@ const Footer: React.FC = () => {
             aria-label="LinkedIn"
           >
             <LinkedInIcon />
-          </a>
-        </li>
-        <li>
-          <a
-            href={config.urls.dribbbleProfile}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-700 dark:text-gray-300 hover:text-bluebell dark:hover:text-bluebell focus:text-bluebell dark:focus:text-bluebell"
-            aria-label="Dribbble"
-          >
-            <DribbbleIcon />
           </a>
         </li>
       </motion.ul>
