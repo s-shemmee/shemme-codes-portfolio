@@ -8,12 +8,19 @@ const Contact: React.FC = () => {
   const contactRef = React.useRef(null);
   const { hasBeenInView } = useInView(contactRef, { threshold: 0.1 });
 
-  const [formState, setFormState] = useState({ email: '', message: '' });
+  const [formState, setFormState] = useState({
+    email: '',
+    message: '',
+    website: '',
+  });
   const [errors, setErrors] = useState<{ email?: string; message?: string }>(
     {}
   );
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [loading, setLoading] = useState(false);
+  const focusRingClass =
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluebellText dark:focus-visible:ring-bluebellTextDark focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950';
 
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -36,13 +43,15 @@ const Contact: React.FC = () => {
 
   const validateForm = () => {
     const newErrors: { email?: string; message?: string } = {};
-    if (!formState.email) {
+    if (!formState.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(formState.email.trim())) {
       newErrors.email = 'Email is invalid';
     }
-    if (!formState.message) {
+    if (!formState.message.trim()) {
       newErrors.message = 'Message is required';
+    } else if (formState.message.trim().length > 2000) {
+      newErrors.message = 'Message is too long';
     }
     return newErrors;
   };
@@ -50,45 +59,69 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const validationErrors = validateForm();
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      setLoading(true);
-      setErrors({});
-      try {
-        const response = await fetch('/api/send-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formState),
-        });
-        if (response.ok) {
-          setSubmitted(true);
-          setFormState({ email: '', message: '' });
-        } else {
-          console.error('Failed to send message');
-        }
-      } catch (error) {
-        console.error('Failed to send message', error);
-      } finally {
-        setLoading(false);
+      setSubmitted(false);
+      setSubmitError('');
+      return;
+    }
+
+    setLoading(true);
+    setErrors({});
+    setSubmitError('');
+    setSubmitted(false);
+
+    try {
+      const payload = {
+        email: formState.email.trim(),
+        message: formState.message.trim(),
+        website: formState.website,
+      };
+
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormState({ email: '', message: '', website: '' });
+      } else {
+        setSubmitError(
+          data.error ||
+            'There was a problem sending your message. Please try again.'
+        );
       }
+    } catch (error) {
+      console.error('Failed to send message', error);
+      setSubmitError('Something went wrong while sending your message.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div ref={contactRef} className="w-full p-4 md:p-6 lg:px-12" id="contact">
-      <div className="max-w-custom mx-auto py-16 md:py-28">
+    <div
+      ref={contactRef}
+      className="w-full px-4 py-12 sm:px-6 md:p-6 lg:px-12"
+      id="contact"
+    >
+      <div className="max-w-custom mx-auto py-6 sm:py-12 md:py-20 lg:py-28">
         <motion.h2
-          className="text-2xl text-gray-900 font-sans font-semibold dark:text-gray-50 flex items-center mb-10"
+          className="text-2xl sm:text-[1.75rem] text-gray-900 font-sans font-semibold dark:text-gray-50 flex items-center mb-8 sm:mb-10"
           initial="hidden"
           animate={hasBeenInView ? 'visible' : 'hidden'}
           variants={textVariants}
           custom={0}
         >
           <span
-            className="text-xl text-bluebell font-serif"
+            className="text-xl text-bluebellText dark:text-bluebellTextDark font-serif"
             style={{ transform: 'translateY(-0.15em)' }}
           >
             04.
@@ -97,7 +130,7 @@ const Contact: React.FC = () => {
           <span className="flex-1 h-px bg-gray-300 dark:bg-gray-700 ml-4 max-w-xs"></span>
         </motion.h2>
         <motion.p
-          className="text-gray-700 text-base font-sans dark:text-gray-300 mb-8 leading-relaxed"
+          className="text-gray-700 text-sm sm:text-base font-sans dark:text-gray-300 mb-8 leading-relaxed"
           initial="hidden"
           animate={hasBeenInView ? 'visible' : 'hidden'}
           variants={textVariants}
@@ -126,7 +159,7 @@ const Contact: React.FC = () => {
               <div className="flex flex-col">
                 <label
                   htmlFor="email"
-                  className="text-gray-700 dark:text-gray-300 text-base font-sans mb-2"
+                  className="text-gray-700 dark:text-gray-300 text-sm sm:text-base font-sans mb-2"
                 >
                   Email Address
                 </label>
@@ -136,23 +169,32 @@ const Contact: React.FC = () => {
                   name="email"
                   placeholder="example@domain.com"
                   autoComplete="email"
+                  maxLength={254}
+                  aria-invalid={Boolean(errors.email)}
+                  aria-describedby={errors.email ? 'email-error' : undefined}
                   className={`p-3 bg-gray-100 dark:bg-gray-800 border ${
                     errors.email
                       ? 'border-red-500'
                       : 'border-gray-300 dark:border-gray-700'
-                  } rounded focus:outline-none focus:border-bluebell dark:focus:border-bluebell hover:border-softLilac dark:hover:border-softLilac`}
+                  } rounded ${focusRingClass} hover:border-softLilac dark:hover:border-softLilac`}
                   value={formState.email}
                   onChange={handleChange}
                   required
                 />
                 {errors.email && (
-                  <span className="text-red-500 text-sm">{errors.email}</span>
+                  <span
+                    id="email-error"
+                    role="alert"
+                    className="text-red-600 text-sm mt-1"
+                  >
+                    {errors.email}
+                  </span>
                 )}
               </div>
               <div className="flex flex-col">
                 <label
                   htmlFor="message"
-                  className="text-gray-700 dark:text-gray-300 text-base font-sans mb-2"
+                  className="text-gray-700 dark:text-gray-300 text-sm sm:text-base font-sans mb-2"
                 >
                   Message
                 </label>
@@ -161,28 +203,63 @@ const Contact: React.FC = () => {
                   name="message"
                   rows={5}
                   placeholder="Type your message"
-                  autoComplete="message"
+                  autoComplete="off"
+                  maxLength={2000}
+                  aria-invalid={Boolean(errors.message)}
+                  aria-describedby={
+                    errors.message ? 'message-error' : undefined
+                  }
                   className={`p-3 bg-gray-100 dark:bg-gray-800 border ${
                     errors.message
                       ? 'border-red-500'
                       : 'border-gray-300 dark:border-gray-700'
-                  } rounded focus:outline-none focus:border-bluebell dark:focus:border-bluebell hover:border-softLilac dark:hover:border-softLilac`}
+                  } rounded ${focusRingClass} hover:border-softLilac dark:hover:border-softLilac`}
                   value={formState.message}
                   onChange={handleChange}
                   required
                 ></textarea>
                 {errors.message && (
-                  <span className="text-red-500 text-sm">{errors.message}</span>
+                  <span
+                    id="message-error"
+                    role="alert"
+                    className="text-red-600 text-sm mt-1"
+                  >
+                    {errors.message}
+                  </span>
                 )}
               </div>
+              <input
+                type="text"
+                name="website"
+                value={formState.website}
+                onChange={handleChange}
+                className="hidden"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
               <button
                 type="submit"
-                className="p-3 bg-transparent border-2 border-bluebell text-bluebell font-serif rounded transition-transform transform hover:bg-bluebell hover:bg-opacity-10 hover:shadow-lg"
+                disabled={loading}
+                aria-disabled={loading}
+                className={`w-full sm:w-auto px-4 py-3 bg-transparent border-2 border-bluebell text-bluebellText dark:text-bluebellTextDark font-serif rounded-lg transition-transform transform hover:bg-bluebell hover:bg-opacity-10 hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed ${focusRingClass}`}
               >
                 {loading ? 'Sending...' : 'Send Message'}
               </button>
+              {submitError && (
+                <p
+                  className="text-red-600 dark:text-red-400 text-sm mt-4"
+                  role="alert"
+                  aria-live="assertive"
+                >
+                  {submitError}
+                </p>
+              )}
               {submitted && (
-                <p className="text-green-500 text-sm mt-4">
+                <p
+                  className="text-green-700 dark:text-green-300 text-sm mt-4"
+                  aria-live="polite"
+                >
                   Message sent successfully!
                 </p>
               )}
