@@ -1,9 +1,15 @@
 'use client';
 
 import React, { useRef } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import useInView from '@/hooks/useInView';
+import AsciiTextParticles from '@/components/AsciiTextParticles';
+
+const Highlight = ({ children }: { children: React.ReactNode }) => (
+  <span className="font-semibold text-bluebellText dark:text-bluebellTextDark">
+    {children}
+  </span>
+);
 
 const About: React.FC = () => {
   const aboutRef = useRef(null);
@@ -22,17 +28,21 @@ const About: React.FC = () => {
   };
 
   return (
-    <div ref={aboutRef} className="w-full p-4 md:p-6 lg:px-12" id="about">
-      <div className="max-w-custom mx-auto py-16 md:py-28">
+    <div
+      ref={aboutRef}
+      className="w-full px-4 py-12 sm:px-6 md:p-6 lg:px-12"
+      id="about"
+    >
+      <div className="max-w-custom mx-auto py-6 sm:py-12 md:py-20 lg:py-28">
         <motion.h2
-          className="text-2xl text-gray-900 font-sans font-semibold dark:text-gray-50 flex items-center mb-10"
+          className="text-2xl sm:text-[1.75rem] text-gray-900 font-sans font-semibold dark:text-gray-50 flex items-center mb-8 sm:mb-10"
           initial="hidden"
           animate={hasBeenInView ? 'visible' : 'hidden'}
           variants={textVariants}
           custom={0}
         >
           <span
-            className="text-xl text-bluebell font-serif"
+            className="text-xl text-bluebellText dark:text-bluebellTextDark font-serif"
             style={{ transform: 'translateY(-0.15em)' }}
           >
             01.
@@ -42,24 +52,41 @@ const About: React.FC = () => {
         </motion.h2>
         <div className="flex flex-col md:flex-row md:gap-12">
           <motion.div
-            className="md:flex-[2]"
+            className="w-full md:flex-[2]"
             initial="hidden"
             animate={hasBeenInView ? 'visible' : 'hidden'}
             variants={textVariants}
             custom={1}
           >
             {[
-              "Hi, I'm Shemmee, a self-taught front-end developer based in Marrakesh, Morocco, passionate about building user-friendly and visually appealing websites. My coding journey began with a simple question: 'How do websites work?' This curiosity led me to dive into HTML and CSS, and I've been hooked ever since.",
-              "Over the past two years, I've honed my skills through online bootcamps like <a class='text-bluebell font-semibold' href='https://www.shecodes.io' target='_blank' rel='noopener noreferrer'>SheCodes</a> and <a class='text-bluebell font-semibold' href='https://codedamn.com' target='_blank' rel='noopener noreferrer'>Codedamn</a>,  combined with hands-on experience in open-source projects and personal builds. This blend of structured learning and practical application has been invaluable to my growth as a developer.",
-              "Outside of coding, I enjoy gaming, reading manga, and spoiling my cats with more attention than they'll admit they need. I'm always up for new challenges and excited to keep learning in this ever-evolving field.",
-            ].map((text, index) => (
+              <>
+                I&apos;m Shemmee, a frontend engineer based in Morocco, working
+                mostly with React, Next.js, and TypeScript. I care about the
+                details that make an interface{' '}
+                <Highlight>work for everyone</Highlight>: the spacing, the
+                motion, how a page responds however you use it.
+              </>,
+              <>
+                I&apos;m self-taught, and I{' '}
+                <Highlight>learn by building</Highlight>: make something, get it
+                wrong, make it better. That curiosity eventually led me to the
+                back end, because I want to understand what happens after the
+                click as much as before it.
+              </>,
+              <>
+                I treat design and code as one job, so I usually{' '}
+                <Highlight>sketch the interface first</Highlight>, then build it
+                to behave the way the sketch promised. Off the keyboard,
+                I&apos;m gaming or being supervised by my cats.
+              </>,
+            ].map((content, index) => (
               <motion.p
                 key={index}
-                className="text-gray-700 text-[15.5px] font-sans dark:text-gray-300 mt-4 leading-loose"
+                className="text-gray-700 text-sm sm:text-base font-sans dark:text-gray-300 mt-4 leading-relaxed sm:leading-loose"
                 custom={index + 2}
                 variants={textVariants}
               >
-                <span dangerouslySetInnerHTML={{ __html: text }} />
+                {content}
               </motion.p>
             ))}
           </motion.div>
@@ -75,18 +102,13 @@ const About: React.FC = () => {
               delay: hasBeenInView ? 0.2 : 0,
             }}
           >
-            <div className="relative group w-full md:w-[300px] h-auto md:h-[300px]">
-              <div className="rounded-lg overflow-hidden">
-                <div className="absolute inset-0 border-2 rounded border-bluebell translate-x-4 translate-y-4 -z-10"></div>
-                <Image
-                  src="https://placehold.co/300x300/png"
-                  width={300}
-                  height={300}
-                  alt="A photo of Shemmee"
-                  className="rounded-lg w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-bluebell opacity-25 rounded-lg group-hover:opacity-0 transition-opacity duration-300 z-10"></div>
-              </div>
+            <div className="w-full max-w-[300px] overflow-hidden rounded-lg border-2 border-bluebell bg-slate-100 shadow-[10px_10px_0_0_rgba(106,113,250,0.18)] dark:bg-slate-900">
+              <AsciiTextParticles
+                src="/ascii/portrait.txt"
+                alt="ASCII Portrait of Shemmee, three-quarter view"
+                aspect={4 / 5}
+                maxWidth={300}
+              />
             </div>
           </motion.div>
         </div>
