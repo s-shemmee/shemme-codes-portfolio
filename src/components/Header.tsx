@@ -6,16 +6,19 @@ import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import ThemeToggle from './widgets/ThemeToggle';
 import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 const navigation = [
-  { name: 'About', url: '#about' },
-  { name: 'Experience', url: '#experience' },
-  { name: 'Projects', url: '#projects' },
-  { name: 'Contact', url: '#contact' },
+  { name: 'About', url: '/#about' },
+  { name: 'Experience', url: '/#experience' },
+  { name: 'Projects', url: '/#projects' },
+  { name: 'Contact', url: '/#contact' },
+  { name: 'Guestbook', url: '/guestbook' },
 ];
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const formatIndex = (index: number) => {
     return index.toString().padStart(2, '0');
@@ -30,7 +33,7 @@ const Header: React.FC = () => {
         <div className="flex lg:flex-1">
           <motion.a
             href="/"
-            className="-m-1.5 p-1.5"
+            className="focus-ring-sm -m-1.5 inline-flex items-center rounded-md p-1.5"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
@@ -42,7 +45,7 @@ const Header: React.FC = () => {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-1.5 text-bluebell"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-1.5 text-bluebellText dark:text-bluebellTextDark"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open main menu'}
           >
@@ -61,12 +64,15 @@ const Header: React.FC = () => {
             <motion.a
               key={item.name}
               href={item.url}
-              className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50 hover:text-bluebell dark:hover:text-bluebell"
+              aria-current={item.url === pathname ? 'page' : undefined}
+              className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50 hover:text-bluebellText dark:hover:text-bluebellTextDark aria-[current=page]:text-bluebellText dark:aria-[current=page]:text-bluebellTextDark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluebellText dark:focus-visible:ring-bluebellTextDark focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950 rounded-sm"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: (index + 1) * 0.1 }}
             >
-              <span className="text-bluebell">{formatIndex(index + 1)}. </span>
+              <span className="text-bluebellText dark:text-bluebellTextDark">
+                {formatIndex(index + 1)}.{' '}
+              </span>
               {item.name}
             </motion.a>
           ))}
@@ -89,13 +95,16 @@ const Header: React.FC = () => {
         <div className="fixed inset-0 z-50 bg-black bg-opacity-25" />
         <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-slate-950 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="/" className="-m-1.5 p-1.5">
+            <a
+              href="/"
+              className="focus-ring-sm -m-1.5 inline-flex items-center rounded-md p-1.5"
+            >
               <span className="sr-only">shemmee</span>
               <Logo className="h-16 w-auto" />
             </a>
             <button
               type="button"
-              className="-m-2.5 rounded-md p-1.5 text-bluebell"
+              className="focus-ring-sm -m-2.5 rounded-md p-1.5 text-bluebellText dark:text-bluebellTextDark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluebellText dark:focus-visible:ring-bluebellTextDark focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"
               onClick={() => setMobileMenuOpen(false)}
               aria-label="Close menu"
             >
@@ -110,10 +119,11 @@ const Header: React.FC = () => {
                   <a
                     key={item.name}
                     href={item.url}
-                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 dark:text-gray-50 hover:bg-gray-400/10"
+                    aria-current={item.url === pathname ? 'page' : undefined}
+                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 dark:text-gray-50 hover:bg-gray-400/10 aria-[current=page]:text-bluebellText dark:aria-[current=page]:text-bluebellTextDark"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <span className="text-bluebell">
+                    <span className="text-bluebellText dark:text-bluebellTextDark">
                       {formatIndex(index + 1)}.{' '}
                     </span>
                     {item.name}
