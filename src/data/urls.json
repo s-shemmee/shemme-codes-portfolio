@@ -1,18 +1,17 @@
 {
   "urls": {
     "githubProfile": "https://github.com/s-shemmee",
-    "youtubeProfile": "https://youtube.com/@shemmee",
+    "behanceProfile": "https://www.behance.net/chaimaelamirine",
     "XProfile": "https://x.com/s_shemmee",
     "linkedinProfile": "https://linkedin.com/in/shemmee",
-    "dribbbleProfile": "https://dribbble.com/s-shemmee",
     "email": "shemmee.dev@gmail.com",
-    "portfolioRepository": "https://github.com/s-shemmee/my-portfolio-website",
-    "portfolioUrl": "https://www.shemmee.codes",
+    "portfolioRepository": "https://github.com/s-shemmee/My-Portfolio-Website",
+    "portfolioUrl": "https://shemme.codes",
     "projects": [
       {
-        "title": "ChatNow",
-        "githubLink": "https://github.com/s-shemmee/ChatNow",
-        "demoLink": "https://chat-now-shemmee.vercel.app/"
+        "title": "Yapp",
+        "githubLink": "https://github.com/s-shemmee/Yapp",
+        "demoLink": "https://yapp-shemmee.vercel.app/"
       },
       {
         "title": "MoviePitch",

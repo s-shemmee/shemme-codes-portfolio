@@ -5,8 +5,7 @@ import { motion } from 'framer-motion';
 import GitHubIcon from '@/components/icons/GithubIcon';
 import LinkedInIcon from '@/components/icons/LinkedInIcon';
 import XIcon from '@/components/icons/XIcon';
-import YouTubeIcon from '@/components/icons/YoutubeIcon';
-import DribbbleIcon from '@/components/icons/DribbbleIcon';
+import BehanceIcon from '@/components/icons/BehanceIcon';
 import useInView from '@/hooks/useInView';
 import { config } from '@/config/config';
 
@@ -24,6 +23,9 @@ const Sides: React.FC = () => {
   const heroAnimationDuration = 2;
   const sideAnimationDelay = heroAnimationDuration + 0.5;
 
+  const socialLinkStyles =
+    'focus-ring-sm inline-flex h-8 w-8 items-center justify-center rounded-md text-gray-700 transition-colors duration-300 hover:text-bluebellText dark:text-gray-300 dark:hover:text-bluebellTextDark';
+
   const socialMediaLinks = [
     {
       href: config.urls.githubProfile,
@@ -31,9 +33,9 @@ const Sides: React.FC = () => {
       label: 'GitHub',
     },
     {
-      href: config.urls.youtubeProfile,
-      icon: <YouTubeIcon />,
-      label: 'YouTube',
+      href: config.urls.behanceProfile,
+      icon: <BehanceIcon />,
+      label: 'Behance',
     },
     {
       href: config.urls.XProfile,
@@ -45,18 +47,13 @@ const Sides: React.FC = () => {
       icon: <LinkedInIcon />,
       label: 'LinkedIn',
     },
-    {
-      href: config.urls.dribbbleProfile,
-      icon: <DribbbleIcon />,
-      label: 'Dribbble',
-    },
   ];
 
   return (
-    <div className="hidden xl:block">
+    <div className="hidden min-[1300px]:block">
       <motion.div
         ref={leftSideRef}
-        className="fixed bottom-0 left-6 xl:left-12 w-10 z-10 flex justify-center"
+        className="fixed bottom-0 left-3 min-[1300px]:left-12 w-10 z-10 flex justify-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{
           opacity: leftSideInView ? 1 : 0,
@@ -66,7 +63,7 @@ const Sides: React.FC = () => {
       >
         <div className="flex flex-col items-center">
           <motion.ul
-            className="space-y-6 mb-6 list-none p-0"
+            className="space-y-3 mb-6 list-none p-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: leftSideInView ? 1 : 0 }}
             transition={{ duration: 0.5 }}
@@ -80,7 +77,7 @@ const Sides: React.FC = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 dark:text-gray-300 hover:text-bluebell dark:hover:text-bluebell focus:text-bluebell dark:focus:text-bluebell"
+                  className={socialLinkStyles}
                   aria-label={link.label}
                 >
                   {link.icon}
@@ -98,7 +95,7 @@ const Sides: React.FC = () => {
       </motion.div>
       <motion.div
         ref={rightSideRef}
-        className="fixed bottom-0 right-6 xl:right-12 w-10 z-10 flex justify-center"
+        className="fixed bottom-0 right-3 min-[1300px]:right-12 w-10 z-10 flex justify-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{
           opacity: rightSideInView ? 1 : 0,
@@ -109,7 +106,7 @@ const Sides: React.FC = () => {
         <div className="flex flex-col items-center">
           <motion.a
             href={`mailto:${config.urls.email}`}
-            className="font-serif font-medium text-sm text-gray-700 tracking-widest dark:text-gray-300 hover:text-bluebell dark:hover:text-bluebell focus:text-bluebell dark:focus:text-bluebell [writing-mode:vertical-lr] transition-transform hover:-translate-y-1 mb-6"
+            className="focus-ring-sm mb-6 inline-flex items-center justify-center rounded-sm px-1 font-serif text-sm font-medium tracking-widest text-gray-700 transition-transform hover:-translate-y-1 hover:text-bluebellText dark:text-gray-300 dark:hover:text-bluebellTextDark [writing-mode:vertical-lr]"
             initial={{ opacity: 0 }}
             animate={{ opacity: rightSideInView ? 1 : 0 }}
             transition={{ duration: 0.5 }}
