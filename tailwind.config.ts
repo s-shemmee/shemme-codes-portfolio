@@ -19,6 +19,9 @@ const config: Config = {
         bluebell: '#6A71FA',
         lavenderRose: '#B98BF9',
         softLilac: '#E0D0F2',
+        bluebellText: '#4F56E8',
+        bluebellTextDark: '#8B90FC',
+        lavenderRoseText: '#8B4FE0',
       },
       maxWidth: {
         custom: '1070px',

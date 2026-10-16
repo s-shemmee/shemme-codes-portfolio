@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light;
+}
+
 html {
   scroll-behavior: smooth;
   transition:
@@ -9,6 +13,63 @@ html {
     color 0.3s ease;
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
 body {
   background-color: var(--tw-bg-opacity);
+}
+
+:focus-visible {
+  outline: none;
+}
+
+.focus-ring-sm:focus-visible {
+  box-shadow:
+    0 0 0 1px rgba(248, 250, 252, 0.96),
+    0 0 0 3px #4f56e8;
+}
+
+html.dark .focus-ring-sm:focus-visible {
+  box-shadow:
+    0 0 0 1px rgba(2, 6, 23, 0.96),
+    0 0 0 3px #8b90fc;
+}
+
+.focus-ring:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(248, 250, 252, 0.96),
+    0 0 0 4px #4f56e8;
+}
+
+html.dark .focus-ring:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(2, 6, 23, 0.96),
+    0 0 0 4px #8b90fc;
+}
+
+html.dark :focus-visible {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
