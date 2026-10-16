@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import LinkedInIcon from '@/components/icons/LinkedInIcon';
 import GitHubIcon from '@/components/icons/GithubIcon';
 import XIcon from '@/components/icons/XIcon';
-import YouTubeIcon from '@/components/icons/YoutubeIcon';
 import DribbbleIcon from '@/components/icons/DribbbleIcon';
 import ForkIcon from '@/components/icons/ForkIcon';
 import StarIcon from '@/components/icons/StarIcon';
@@ -25,7 +24,7 @@ const Footer: React.FC = () => {
 
   useEffect(() => {
     const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
-    fetch(`https://api.github.com/repos/s-shemmee/my-portfolio-website`, {
+    fetch(`https://api.github.com/repos/s-shemmee/shemmee-codes-portfolio`, {
       headers: {
         Authorization: `token ${token}`,
       },
@@ -52,6 +51,9 @@ const Footer: React.FC = () => {
     },
   };
 
+  const focusRingClass =
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluebellText dark:focus-visible:ring-bluebellTextDark focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950 rounded-sm';
+
   return (
     <footer
       ref={footerRef}
@@ -68,7 +70,7 @@ const Footer: React.FC = () => {
             href={config.urls.githubProfile}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 dark:text-gray-300 hover:text-bluebell dark:hover:text-bluebell focus:text-bluebell dark:focus:text-bluebell"
+            className={`text-gray-700 dark:text-gray-300 hover:text-bluebellText dark:hover:text-bluebellTextDark ${focusRingClass}`}
             aria-label="GitHub"
           >
             <GitHubIcon />
@@ -76,13 +78,13 @@ const Footer: React.FC = () => {
         </li>
         <li>
           <a
-            href={config.urls.youtubeProfile}
+            href={config.urls.behanceProfile}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 dark:text-gray-300 hover:text-bluebell dark:hover:text-bluebell focus:text-bluebell dark:focus:text-bluebell"
-            aria-label="YouTube"
+            className={`text-gray-700 dark:text-gray-300 hover:text-bluebellText dark:hover:text-bluebellTextDark ${focusRingClass}`}
+            aria-label="Behance"
           >
-            <YouTubeIcon />
+            <BehanceIcon />
           </a>
         </li>
         <li>
@@ -90,7 +92,7 @@ const Footer: React.FC = () => {
             href={config.urls.XProfile}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 dark:text-gray-300 hover:text-bluebell dark:hover:text-bluebell focus:text-bluebell dark:focus:text-bluebell"
+            className={`text-gray-700 dark:text-gray-300 hover:text-bluebellText dark:hover:text-bluebellTextDark ${focusRingClass}`}
             aria-label="X"
           >
             <XIcon />
@@ -101,7 +103,7 @@ const Footer: React.FC = () => {
             href={config.urls.linkedinProfile}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 dark:text-gray-300 hover:text-bluebell dark:hover:text-bluebell focus:text-bluebell dark:focus:text-bluebell"
+            className={`text-gray-700 dark:text-gray-300 hover:text-bluebellText dark:hover:text-bluebellTextDark ${focusRingClass}`}
             aria-label="LinkedIn"
           >
             <LinkedInIcon />
@@ -127,10 +129,10 @@ const Footer: React.FC = () => {
       >
         <a
           href={config.urls.portfolioRepository}
-          className="text-gray-700 dark:text-gray-300 hover:text-bluebell dark:hover:text-bluebell focus:text-bluebell dark:focus:text-bluebell"
+          className={`text-gray-700 dark:text-gray-300 hover:text-bluebellText dark:hover:text-bluebellTextDark ${focusRingClass}`}
           aria-label="Portfolio"
         >
-          <div className="hover:text-bluebell dark:hover:text-bluebell">
+          <div className="hover:text-bluebellText dark:hover:text-bluebellTextDark">
             Built with &#128156; by SHEMMEE &copy; {year}
           </div>
           {stars !== null && forks !== null && (
