@@ -2,7 +2,7 @@
 
 A responsive, accessible, single-page portfolio built with Next.js, TypeScript and Tailwind CSS. Fork it, replace the content, and deploy.
 
-![Portfolio preview](https://github.com/user-attachments/assets/d8ff5b21-580e-4000-8173-5d416af8a369)
+![Portfolio preview](public/images/Portfolio.png)
 
 ## Features
 
