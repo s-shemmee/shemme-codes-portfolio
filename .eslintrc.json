@@ -13,7 +13,8 @@
     "@typescript-eslint/no-unused-vars": "error",
     "prettier/prettier": "warn",
     "jsx-quotes": ["error", "prefer-double"],
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off"
   },
   "parserOptions": {
     "project": "./tsconfig.json"
