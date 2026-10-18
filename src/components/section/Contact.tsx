@@ -1,11 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import useInView from '@/hooks/useInView';
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Contact: React.FC = () => {
-  const contactRef = React.useRef(null);
+  const contactRef = useRef(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
   const { hasBeenInView } = useInView(contactRef, { threshold: 0.1 });
 
   const [formState, setFormState] = useState({
@@ -45,7 +49,7 @@ const Contact: React.FC = () => {
     const newErrors: { email?: string; message?: string } = {};
     if (!formState.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formState.email.trim())) {
+    } else if (!EMAIL_RE.test(formState.email.trim())) {
       newErrors.email = 'Email is invalid';
     }
     if (!formState.message.trim()) {
@@ -64,6 +68,7 @@ const Contact: React.FC = () => {
       setErrors(validationErrors);
       setSubmitted(false);
       setSubmitError('');
+      (validationErrors.email ? emailRef : messageRef).current?.focus();
       return;
     }
 
@@ -98,8 +103,7 @@ const Contact: React.FC = () => {
             'There was a problem sending your message. Please try again.'
         );
       }
-    } catch (error) {
-      console.error('Failed to send message', error);
+    } catch {
       setSubmitError('Something went wrong while sending your message.');
     } finally {
       setLoading(false);
@@ -150,6 +154,7 @@ const Contact: React.FC = () => {
           >
             <motion.form
               className="space-y-6"
+              noValidate
               initial="hidden"
               animate={hasBeenInView ? 'visible' : 'hidden'}
               variants={textVariants}
@@ -164,6 +169,7 @@ const Contact: React.FC = () => {
                   Email Address
                 </label>
                 <input
+                  ref={emailRef}
                   type="email"
                   id="email"
                   name="email"
@@ -185,7 +191,7 @@ const Contact: React.FC = () => {
                   <span
                     id="email-error"
                     role="alert"
-                    className="text-red-600 text-sm mt-1"
+                    className="text-red-600 dark:text-red-400 text-sm mt-1"
                   >
                     {errors.email}
                   </span>
@@ -199,6 +205,7 @@ const Contact: React.FC = () => {
                   Message
                 </label>
                 <textarea
+                  ref={messageRef}
                   id="message"
                   name="message"
                   rows={5}
@@ -222,12 +229,13 @@ const Contact: React.FC = () => {
                   <span
                     id="message-error"
                     role="alert"
-                    className="text-red-600 text-sm mt-1"
+                    className="text-red-600 dark:text-red-400 text-sm mt-1"
                   >
                     {errors.message}
                   </span>
                 )}
               </div>
+              {/* Honeypot: hidden from people, bots tend to fill it */}
               <input
                 type="text"
                 name="website"
@@ -250,19 +258,16 @@ const Contact: React.FC = () => {
                 <p
                   className="text-red-600 dark:text-red-400 text-sm mt-4"
                   role="alert"
-                  aria-live="assertive"
                 >
                   {submitError}
                 </p>
               )}
-              {submitted && (
-                <p
-                  className="text-green-700 dark:text-green-300 text-sm mt-4"
-                  aria-live="polite"
-                >
-                  Message sent successfully!
-                </p>
-              )}
+              <p
+                role="status"
+                className="mt-4 min-h-[1.25rem] text-sm text-green-700 dark:text-green-300"
+              >
+                {submitted ? 'Message sent successfully!' : ''}
+              </p>
             </motion.form>
           </motion.div>
         </div>
