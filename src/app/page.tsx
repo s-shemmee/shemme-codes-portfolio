@@ -10,7 +10,7 @@ import Projects from '@/components/section/Projects';
 import Footer from '@/components/section/Footer';
 import Contact from '@/components/section/Contact';
 import Sides from '@/components/section/Sides';
-import GuestbookTeaser from '@/components/section/GeustbookTeaser';
+import GuestbookTeaser from '@/components/section/GuestbookTeaser';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
