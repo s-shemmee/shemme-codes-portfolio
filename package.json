@@ -72,8 +72,11 @@
       "git add"
     ]
   },
-  "resolutions": {
-    "next/postcss": "^8.5.23",
-    "postcss/nanoid": "^3.3.18"
-  }
+"resolutions": {
+  "js-yaml": "<patched>",
+  "brace-expansion": "<patched>",
+  "minimatch": "<patched>",
+  "serialize-javascript": "<patched>",
+  "postcss-selector-parser": "<patched>"
+}
 }
