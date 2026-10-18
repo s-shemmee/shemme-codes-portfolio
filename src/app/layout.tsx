@@ -18,13 +18,14 @@ const jura = Jura({
   display: 'swap',
 });
 
-const SITE_URL = 'https://shemme.codes';
-const SITE_NAME = 'Shemme Codes';
+// Replace these placeholders with your own details.
+const SITE_URL = 'https://your-domain.com';
+const SITE_NAME = 'Your Name';
 const TITLE = `${SITE_NAME} | Front-End Engineer`;
 const DESCRIPTION =
-  'Front-end engineer in Morocco building accessible, carefully crafted interfaces with React, Next.js, and TypeScript. Projects, toolbox, and contact.';
+  'Front-end engineer building accessible, carefully crafted interfaces with React, Next.js, and TypeScript. Projects, toolbox, and contact.';
 const SOCIAL_DESCRIPTION =
-  'Front-end engineer in Morocco building accessible, carefully crafted interfaces with React, Next.js, and TypeScript.';
+  'Front-end engineer building accessible, carefully crafted interfaces with React, Next.js, and TypeScript.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -35,8 +36,6 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   applicationName: SITE_NAME,
   keywords: [
-    'Shemmee',
-    'Shemmee Codes',
     'Front-End Engineer',
     'Frontend Engineer',
     'Front-End Developer',
@@ -46,10 +45,9 @@ export const metadata: Metadata = {
     'Web Accessibility',
     'WCAG',
     'Portfolio',
-    'Morocco',
   ],
-  authors: [{ name: 'Shemmee', url: SITE_URL }],
-  creator: 'Shemmee',
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
   alternates: { canonical: '/' },
   manifest: '/manifest.json',
   icons: {
@@ -61,6 +59,8 @@ export const metadata: Metadata = {
     apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180' }],
   },
   robots: { index: true, follow: true },
+  // To add share images, put opengraph-image.png and twitter-image.png
+  // (1200x630) in src/app. Next.js picks them up automatically.
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -68,28 +68,11 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: TITLE,
     description: SOCIAL_DESCRIPTION,
-    images: [
-      {
-        url: '/opengraph-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Shemmee, front-end engineer',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
-    creator: '@s_shemmee',
     title: TITLE,
     description: SOCIAL_DESCRIPTION,
-    images: [
-      {
-        url: '/twitter-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Shemmee, front-end engineer',
-      },
-    ],
   },
 };
 
@@ -107,11 +90,9 @@ export const viewport: Viewport = {
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Chaimae Lamirine',
-  alternateName: 'Shemmee',
+  name: SITE_NAME,
   jobTitle: 'Front-End Engineer',
   url: SITE_URL,
-  address: { '@type': 'PostalAddress', addressCountry: 'MA' },
   knowsAbout: ['React', 'Next.js', 'TypeScript', 'Web Accessibility'],
   sameAs: [
     config.urls.linkedinProfile,
