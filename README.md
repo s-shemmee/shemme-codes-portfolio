@@ -30,7 +30,7 @@ A responsive, accessible, single-page portfolio built with Next.js, TypeScript a
 
 The report below was generated for the original site. Run Lighthouse on your own deployment, because your scores depend on your content and images.
 
-![Lighthouse report](https://github.com/user-attachments/assets/56084429-1a4d-4fd5-83be-a9ef06fa9763)
+![Lighthouse report](public/images/lighthouse.png)
 
 ## Getting started
 
