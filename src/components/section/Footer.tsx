@@ -12,6 +12,8 @@ import useInView from '@/hooks/useInView';
 import { config } from '@/config/config';
 import { GitHubInfo } from '@/types/types';
 
+const OWNER_NAME = 'YOUR NAME';
+
 const Footer: React.FC = () => {
   const [{ stars, forks }, setGitHubInfo] = useState<GitHubInfo>({
     stars: null,
@@ -23,23 +25,36 @@ const Footer: React.FC = () => {
   const { hasBeenInView } = useInView(footerRef, { threshold: 0.1 });
 
   useEffect(() => {
-    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
-    fetch(`https://api.github.com/repos/s-shemmee/shemmee-codes-portfolio`, {
-      headers: {
-        Authorization: `token ${token}`,
-      },
+    // Reads "owner/repo" from the portfolioRepository URL in urls.json.
+    let repoPath = '';
+    try {
+      repoPath = new URL(config.urls.portfolioRepository).pathname.replace(
+        /^\/|\/$/g,
+        ''
+      );
+    } catch {
+      return;
+    }
+    if (!repoPath.includes('/')) return;
+
+    const controller = new AbortController();
+
+    fetch(`https://api.github.com/repos/${repoPath}`, {
+      signal: controller.signal,
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();
       })
       .then((json) => {
         const { stargazers_count, forks_count } = json;
         setGitHubInfo({ stars: stargazers_count, forks: forks_count });
       })
-      .catch((e) => console.error(e));
+      .catch(() => {
+        // Offline, rate-limited or repo not found: the counts are simply hidden.
+      });
+
+    return () => controller.abort();
   }, []);
 
   const variants = {
@@ -118,21 +133,24 @@ const Footer: React.FC = () => {
       >
         <a
           href={config.urls.portfolioRepository}
+          target="_blank"
+          rel="noopener noreferrer"
           className={`text-gray-700 dark:text-gray-300 hover:text-bluebellText dark:hover:text-bluebellTextDark ${focusRingClass}`}
-          aria-label="Portfolio"
         >
-          <div className="hover:text-bluebellText dark:hover:text-bluebellTextDark">
-            Built with &#128156; by SHEMMEE &copy; {year}
+          <div>
+            Built with &#128156; by {OWNER_NAME} &copy; {year}
           </div>
           {stars !== null && forks !== null && (
             <div className="mt-2 flex justify-center items-center space-x-4">
               <span className="flex items-center space-x-1">
                 <StarIcon />
                 <span>{stars}</span>
+                <span className="sr-only">stars</span>
               </span>
               <span className="flex items-center space-x-1">
                 <ForkIcon />
                 <span>{forks}</span>
+                <span className="sr-only">forks</span>
               </span>
             </div>
           )}
