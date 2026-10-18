@@ -1,34 +1,24 @@
 {
   "urls": {
-    "githubProfile": "https://github.com/s-shemmee",
-    "behanceProfile": "https://www.behance.net/chaimaelamirine",
-    "XProfile": "https://x.com/s_shemmee",
-    "linkedinProfile": "https://linkedin.com/in/shemmee",
-    "email": "shemmee.dev@gmail.com",
-    "portfolioRepository": "https://github.com/s-shemmee/My-Portfolio-Website",
-    "portfolioUrl": "https://shemme.codes",
+    "githubProfile": "https://github.com/your-username",
+    "behanceProfile": "https://www.behance.net/your-username",
+    "XProfile": "https://x.com/your-username",
+    "linkedinProfile": "https://linkedin.com/in/your-username",
+    "email": "you@example.com",
+    "portfolioRepository": "https://github.com/your-username/your-portfolio-repo",
+    "portfolioUrl": "https://your-domain.com",
     "projects": [
       {
-        "title": "Yapp",
-        "githubLink": "https://github.com/s-shemmee/Yapp",
-        "demoLink": "https://yapp-shemmee.vercel.app/"
+        "title": "Project One",
+        "githubLink": "https://github.com/your-username/project-one",
+        "demoLink": "https://example.com"
       },
       {
-        "title": "MoviePitch",
-        "githubLink": "https://github.com/s-shemmee/MoviePitch",
-        "demoLink": "https://moviepitch-shemmee.vercel.app/"
-      },
-      {
-        "title": "GhibliGaze",
-        "githubLink": "https://github.com/s-shemmee/GhibliGaze",
-        "demoLink": "https://ghibli-gaze.vercel.app/"
-      },
-      {
-        "title": "Dictionary",
-        "githubLink": "https://github.com/s-shemmee/Dictionary-React-App",
-        "demoLink": "https://dictionary-app-shemmee.vercel.app/"
+        "title": "Project Two",
+        "githubLink": "https://github.com/your-username/project-two",
+        "demoLink": "https://example.com"
       }
     ],
-    "moreProjects": "https://github.com/s-shemmee?tab=repositories"
+    "moreProjects": "https://github.com/your-username?tab=repositories"
   }
 }
