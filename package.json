@@ -72,11 +72,11 @@
       "git add"
     ]
   },
-"resolutions": {
-  "js-yaml": "<patched>",
-  "brace-expansion": "<patched>",
-  "minimatch": "<patched>",
-  "serialize-javascript": "<patched>",
-  "postcss-selector-parser": "<patched>"
-}
+  "resolutions": {
+    "js-yaml": "<patched>",
+    "brace-expansion": "<patched>",
+    "minimatch": "<patched>",
+    "serialize-javascript": "<patched>",
+    "postcss-selector-parser": "<patched>"
+  }
 }
